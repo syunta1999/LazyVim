@@ -3,7 +3,40 @@ require("config.lazy")
 
 -------- オプションの設定 -----------
 -- ツリーを出すプラグイン
-require("nvim-tree").setup()
+require("nvim-tree").setup({
+  update_focused_file = {
+    enable = true,
+    update_cwd = false,
+  },
+  git = {
+    enable = true,
+    ignore = false,
+  },
+  filters = {
+    dotfiles = false,
+  },
+  renderer = {
+    group_empty = true,
+    highlight_git = true,
+    highlight_opened_files = "name",
+    icons = {
+      git_placement = "signcolumn",
+      modified_placement = "signcolumn",
+      glyphs = {
+        git = {
+          deleted = "",
+          unstaged = "",
+          untracked = "",
+          staged = "",
+          unmerged = "",
+          renamed = "»",
+          ignored = "◌",
+        },
+      },
+    },
+  },
+})
+
 -- スクロールバーを出すプラグイン
 local colors = require("monokai-nightasty.colors").setup()
 
@@ -55,6 +88,9 @@ vim.api.nvim_create_autocmd("CursorHold", {
     vim.lsp.buf.hover()
   end,
 })
+
+-- カーソルホールドのタイムアウトを調整する
+vim.opt.updatetime = 1000 -- 1秒（1000ミリ秒）に設定
 
 -- 行番号
 vim.o.number = true
