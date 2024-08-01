@@ -34,10 +34,61 @@ return {
       })
     end,
   },
+  -- 起動時の絵
+  {
+    "nvimdev/dashboard-nvim",
+    event = "VimEnter",
+    config = function()
+      require("dashboard").setup({
+        theme = "Hyper",
+        config = {
+          week_header = {
+            enable = true,
+          },
+          shortcut = {
+            { desc = "󰊳 Update", group = "@property", action = "Lazy update", key = "u" },
+            {
+              icon = " ",
+              icon_hl = "@variable",
+              desc = "Files",
+              group = "Label",
+              action = "Telescope find_files",
+              key = "f",
+            },
+            {
+              desc = " Apps",
+              group = "DiagnosticHint",
+              action = "Telescope app",
+              key = "a",
+            },
+            {
+              desc = " dotfiles",
+              group = "Number",
+              action = "Telescope dotfiles",
+              key = "d",
+            },
+          },
+        },
+      })
+    end,
+    dependencies = { { "nvim-tree/nvim-web-devicons" } },
+  },
   lazy = false,
   -- スクロールバーの設定
   {
     "petertriho/nvim-scrollbar",
+  },
+  -- nvim-tree でファイル名変更した場合などに自動で更新
+  {
+    "antosha417/nvim-lsp-file-operations",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-tree.lua",
+    },
+    event = "VeryLazy",
+    config = function()
+      require("lsp-file-operations").setup()
+    end,
   },
   -- テーマの設定
   -- ほんとはデフォルトが一番かっこいいけど、色がうるさいので monokai-nightasty にしている

@@ -2,7 +2,7 @@
 require("config.lazy")
 
 -------- オプションの設定 -----------
--- ツリーを出すプラグイン
+-- ファイルツリーを出すプラグイン
 require("nvim-tree").setup({
   update_focused_file = {
     enable = true,
@@ -39,7 +39,6 @@ require("nvim-tree").setup({
 
 -- スクロールバーを出すプラグイン
 local colors = require("monokai-nightasty.colors").setup()
-
 require("scrollbar").setup({
   handle = {
     color = colors.bg_highlight,
